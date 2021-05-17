@@ -3,7 +3,7 @@ A mask detector built as a final project for AP Computer Science A.
 
 ## Compilation
 ### Dependencies 
-This project requires that both CMake and OpenCV are installed on your system.
+This project requires that both [CMake](https://cmake.org/download/) and [OpenCV](https://opencv.org/) are installed on your system.
 
 ### On Linux 
 Run "install.sh" in the project's root directory.
