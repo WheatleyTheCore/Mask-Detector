@@ -23,7 +23,11 @@ class Display {
             rectangle(frame, tl + mouthTl, tl + mouthBr, Scalar(0, 0, 255), 2, LINE_8);
         }
 
-        void showFrame() {
-            imshow("Mask Detector", frame);
+        void addText(bool isWearingMask) {
+            if (isWearingMask) {
+                putText(frame, "Mask Detected", Point(10, frame.rows/2), FONT_HERSHEY_DUPLEX, 1.0, CV_RGB(0, 225, 0), 2);
+            } else {
+                putText(frame, "Mask Not Detected", Point(10, frame.rows/2), FONT_HERSHEY_DUPLEX, 1.0, CV_RGB(225, 0, 0), 2);
+            }
         }
 };

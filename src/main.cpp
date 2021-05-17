@@ -47,8 +47,8 @@ int main() {
 			}
 
 		}
+		disp.addText(md.isWearingMask());
 		imshow("faces", disp.frame);
-		cout << md.isWearingMask() << endl;
         if( waitKey(10) == 27 )
         {
             break; // escape
