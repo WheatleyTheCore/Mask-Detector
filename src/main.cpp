@@ -31,25 +31,19 @@ int main() {
 		}
 
 
-		fd.detectFaces(disp.frame);
+		fd.detectFaces(disp.frame);                  //run facial detection only
 		for (int i = 0; i < fd.faces.size(); i++) {
-			disp.drawFace(fd.faces[i]);
-			//Point topLeft(fd.faces[i].x, fd.faces[i].y);
-			//Point bottomRight(fd.faces[i].x + fd.faces[i].width, fd.faces[i].y + fd.faces[i].height);
-			//rectangle(frame, topLeft, bottomRight, Scalar(0, 0, 225), 2, LINE_8);
+			disp.drawFace(fd.faces[i]);              //draw a box around detected faces
 
-			md.detectMouths(disp.frame(fd.faces[i]));
+			md.detectMouths(disp.frame(fd.faces[i]));//detect mouths (if there is a mouth then we know there isn't a mask)
 			for (int j = 0; j < md.mouths.size(); j++) {
-				disp.drawMouth(md.mouths[j]);
-				//Point mouthTopLeft(md.mouths[j].x, md.mouths[j].y);
-				//Point mouthBottomRight(md.mouths[j].x + md.mouths[j].width, md.mouths[j].y + md.mouths[j].height);
-				//rectangle(frame, topLeft + mouthTopLeft, topLeft + mouthBottomRight, Scalar(0, 0, 225), 2, LINE_8);
+				disp.drawMouth(md.mouths[j]);        // draw box around mouth
 			}
 
 		}
-		disp.addText(md.isWearingMask());
-		imshow("faces", disp.frame);
-        if( waitKey(10) == 27 )
+		disp.addText(md.isWearingMask());            // add text saying whether or not there is a face
+		imshow("faces", disp.frame);                 // display the frame
+        if( waitKey(10) == 27 )                      // if the user presses esc then exit
         {
             break; // escape
         }
