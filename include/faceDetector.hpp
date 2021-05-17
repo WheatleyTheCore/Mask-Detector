@@ -7,7 +7,7 @@ using namespace cv;
 class FaceDetector {
     private:
         CascadeClassifier face_cascade;
-        String face_cascade_path = samples::findFile("data/haarcascades/haarcascade_frontalface_alt.xml");
+        String face_cascade_path = samples::findFile("../data/haarcascades/haarcascade_frontalface_alt.xml");
     public:
         vector<Rect> faces;
         FaceDetector() {

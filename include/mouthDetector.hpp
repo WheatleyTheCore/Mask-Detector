@@ -8,7 +8,7 @@ using namespace cv;
 class MouthDetector {
     private:
         CascadeClassifier mouth_cascade;
-        String mouth_cascade_path = samples::findFile("data/haarcascades/mouth.xml");
+        String mouth_cascade_path = samples::findFile("../data/haarcascades/mouth.xml");
         int flag = 0;
         clock_t detectionStartTime;
     public:
@@ -33,7 +33,7 @@ class MouthDetector {
         **      long. If mouths.size() > 0 for over a few seconds it's probably actually
         **      a mouth
          */
-        bool faceHasMouth(Mat face) {
+        bool faceHasMouth() {
             if (mouths.size() > 0) {
                 if (flag == 0){
                     flag = 1;
@@ -47,5 +47,8 @@ class MouthDetector {
                 return true;
             }
             else return false;
+        }
+        bool isWearingMask() {
+            return !(faceHasMouth());
         }
 };
