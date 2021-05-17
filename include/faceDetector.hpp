@@ -17,9 +17,6 @@ class FaceDetector {
             cout << "FaceDetector successfully initialized.\n";
         }
 
-        /*
-         *Add parameter that is a pointer to the faces array so we can read and write to that,
-         *or maybe have it stored as a class member* */
         void detectFaces(Mat frame) {
             face_cascade.detectMultiScale(frame, faces);
         }

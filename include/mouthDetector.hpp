@@ -29,6 +29,11 @@ class MouthDetector {
         }
 
         bool faceHasMouth() {
+            /*
+            ** The clock stuff here just eliminates noise.
+            ** The classifier sometiemes recognizes an eye as a mouth,
+            ** so we just make sure the detection is persistent before we use it
+                */
             if (mouths.size() > 0) {
                 if (flag == 0){
                     flag = 1;
@@ -43,6 +48,6 @@ class MouthDetector {
             else return false;
         }
         bool isWearingMask() {
-            return !(faceHasMouth());
+            return !(faceHasMouth()); //if there is a visible mouth on the face then there is no mask
         }
 };
