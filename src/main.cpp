@@ -44,6 +44,7 @@ int main() {
 
 		}
 		imshow("faces", frame);
+		cout << md.faceHasMouth(frame) << endl;
         if( waitKey(10) == 27 )
         {
             break; // escape

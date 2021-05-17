@@ -1,4 +1,5 @@
 #include <opencv2/opencv.hpp>
+#include <ctime>
 #include <iostream>
 
 using namespace std;
@@ -8,6 +9,8 @@ class MouthDetector {
     private:
         CascadeClassifier mouth_cascade;
         String mouth_cascade_path = samples::findFile("data/haarcascades/mouth.xml");
+        int flag = 0;
+        clock_t detectionStartTime;
     public:
         vector<Rect> mouths;
 
@@ -31,8 +34,16 @@ class MouthDetector {
         **      a mouth
          */
         bool faceHasMouth(Mat face) {
-            detectMouths(face);
             if (mouths.size() > 0) {
+                if (flag == 0){
+                    flag = 1;
+                    detectionStartTime = clock();
+                    cout << "Started Clock!\n";
+                }
+            } else {
+                flag = 0;
+            }
+            if (flag == 1 && ((clock() - detectionStartTime)/CLOCKS_PER_SEC) > 2) {
                 return true;
             }
             else return false;
