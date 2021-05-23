@@ -11,6 +11,8 @@ class MouthDetector {
         String mouth_cascade_path = samples::findFile("../data/haarcascades/mouth.xml");
         int flag = 0;
         clock_t detectionStartTime;
+        clock_t detectionStopTime;
+        bool mouthIsPresent = false;
     public:
         vector<Rect> mouths;
 
@@ -27,27 +29,30 @@ class MouthDetector {
             equalizeHist(gray, gray);
            mouth_cascade.detectMultiScale(gray, mouths, 4, 13);
         }
-
         bool faceHasMouth() {
-            /*
-            ** The clock stuff here just eliminates noise.
-            ** The classifier sometiemes recognizes an eye as a mouth,
-            ** so we just make sure the detection is persistent before we use it
-                */
+            /**
+             *All of the timer stuff is to minimize the effects of temporary false positives or false negatives
+             * */
             if (mouths.size() > 0) {
                 if (flag == 0){
                     flag = 1;
                     detectionStartTime = clock();
                 }
             } else {
-                flag = 0;
+                if (flag == 1) {
+                    flag = 0;
+                    detectionStopTime = clock();
+                }
             }
             if (flag == 1 && ((clock() - detectionStartTime)/CLOCKS_PER_SEC) > 2) {
-                return true;
+                mouthIsPresent = true;
             }
-            else return false;
+            else if (flag == 0 && ((clock() - detectionStopTime)/CLOCKS_PER_SEC) > 2) {
+                mouthIsPresent = false;
+            }
+            return mouthIsPresent;
         }
         bool isWearingMask() {
-            return !(faceHasMouth()); //if there is a visible mouth on the face then there is no mask
+            return !(faceHasMouth());
         }
 };
