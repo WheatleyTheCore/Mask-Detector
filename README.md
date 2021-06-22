@@ -24,3 +24,9 @@ You will need to use the CMake application to compile.
 The structure of this project is kinda weird becuase it needs to meet the above requirements.
 
 Each file in the include directory is a class. The main file is in the src directory.
+
+## How it works
+
+Using Haar Cascades, it detects faces, and then looks for mouths within the areas it detects a face. If there is no mouth, we can assume something (probably a mask) is covering it. If there is a mouth, then the person is definitely not wearing a mask (unless they are wearing some kind of clear mask).
+
+Another way to do this would be to train a mask classifier using OpenCV, but honestly that sounded like a lot of work and I had other final projects to work on.
